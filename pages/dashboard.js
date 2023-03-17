@@ -1,5 +1,5 @@
 import Message from "@/components/Message";
-import { db } from "@/firebase.config";
+import { auth, db } from "@/firebase.config";
 import { signOut } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
@@ -245,8 +245,7 @@ const Dashboard = () => {
                 setTimeout(() => {}, 500);
               })
               .catch((err) => {
-                alert("Failed when logging out...");
-                console.log(err.stack);
+                toast.error("Couldn't log out...");
               });
           }
         }}
