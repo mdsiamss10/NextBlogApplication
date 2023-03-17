@@ -24,6 +24,8 @@ const Post = () => {
     authorUID: user?.uid,
     authorAvatar: user?.photoURL,
     authorName: user?.displayName,
+    approved: true,
+    authorEmail: user?.email,
   });
   //   Submit the form's post
   const submitPost = async (e) => {
@@ -43,7 +45,10 @@ const Post = () => {
     }
     try {
       const collectionRef = collection(db, "posts");
-      const result = await addDoc(collectionRef, post);
+      const result = await addDoc(collectionRef, {
+        ...post,
+        approved: user.email !== "ohiduzzamansiam@gmail.com" ? false : true,
+      });
       if (result) {
         toast.success("Post created.😊");
       }
