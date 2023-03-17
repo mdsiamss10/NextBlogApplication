@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import SVGComponent from "./SVGComponent";
 
 export default function Navbar() {
   const router = useRouter();
@@ -12,7 +13,9 @@ export default function Navbar() {
     <>
       <nav className="flex items-center justify-between py-10">
         <Link href="/">
-          <button className="text-lg text-gray-800">Creative thoughts</button>
+          <button className="text-lg text-gray-800">
+            <SVGComponent />
+          </button>
         </Link>
         <ul>
           {!user && pathname !== "/auth/login" && (
