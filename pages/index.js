@@ -36,17 +36,21 @@ const Home = () => {
             <>
               {post.approved && user?.email === "ohiduzzamansiam@gmail.com" ? (
                 <Message key={post?.id} {...post}>
-                  <div className="flex items-center gap-3">
-                    <div
-                      onClick={() => {
-                        deletePost(post.id);
-                      }}
-                      className="flex items-center gap-1 font-bold text-red-600 cursor-pointer select-none"
-                    >
-                      <AiTwotoneDelete />
-                      <span>delete</span>
-                    </div>
-                  </div>
+                  {!(post.authorUID === user?.uid) && (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <div
+                          onClick={() => {
+                            deletePost(post.id);
+                          }}
+                          className="flex items-center gap-1 font-bold text-red-600 cursor-pointer select-none"
+                        >
+                          <AiTwotoneDelete />
+                          <span>delete</span>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </Message>
               ) : (
                 <>{post.approved && <Message {...post} />}</>
