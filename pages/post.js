@@ -97,7 +97,7 @@ const Post = () => {
         </div>
         <button
           type="submit"
-          className="text-white mt-2 w-full bg-cyan-400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center"
+          className="text-white mt-2 w-full bg-[#55B3F3] focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center"
         >
           Submit
         </button>
