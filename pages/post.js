@@ -39,8 +39,8 @@ const Post = () => {
       toast.error("Post is too short.🥴");
       return;
     }
-    if (post.description.length > 300) {
-      toast.error("Post is more than 300 charecters.😁");
+    if (post.description.length > 700) {
+      toast.error("Post is more than 700 charecters.😁");
       return;
     }
     try {
@@ -85,10 +85,10 @@ const Post = () => {
           />
           <p
             className={`mt-2 text-green-500 ${
-              post.description.length >= 300 && "text-red-500"
+              post.description.length >= 700 && "text-red-500"
             }`}
           >
-            {post.description.length}/300
+            {post.description.length}/700
           </p>
         </div>
         <button
