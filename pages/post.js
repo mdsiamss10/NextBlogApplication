@@ -24,7 +24,7 @@ const Post = () => {
     authorUID: user?.uid,
     authorAvatar: user?.photoURL,
     authorName: user?.displayName,
-    approved: true,
+    approved: false,
     authorEmail: user?.email,
   });
   //   Submit the form's post
