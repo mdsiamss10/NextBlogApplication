@@ -35,7 +35,7 @@ const Post = () => {
       toast.error("Post content is empty.💩");
       return;
     }
-    if (post.description.length < 10) {
+    if (post.description.length < 5) {
       toast.error("Post is too short.🥴");
       return;
     }
@@ -47,10 +47,14 @@ const Post = () => {
       const collectionRef = collection(db, "posts");
       const result = await addDoc(collectionRef, {
         ...post,
-        approved: user.email !== "ohiduzzamansiam@gmail.com" ? false : true,
+        approved: user?.email !== "ohiduzzamansiam@gmail.com" ? false : true,
       });
       if (result) {
-        toast.success("Post created.😊");
+        toast.success(
+          user?.email === "ohiduzzamansiam@gmail.com"
+            ? "Post created.😊"
+            : "Post goes to review to Siam."
+        );
       }
       setTimeout(() => {
         setPost({ ...post, description: "" });
@@ -93,7 +97,7 @@ const Post = () => {
         </div>
         <button
           type="submit"
-          className="text-white mt-2 w-full bg-cyan-500/100 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center"
+          className="text-white mt-2 w-full bg-cyan-400 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center"
         >
           Submit
         </button>

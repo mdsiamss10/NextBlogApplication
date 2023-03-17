@@ -1,4 +1,4 @@
-import { UserContext } from "@/pages/_app";
+import { PostsContext, UserContext } from "@/pages/_app";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ export default function Navbar() {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const pathname = router.pathname;
+  const { posts } = useContext(PostsContext);
   return (
     <>
       <nav className="flex items-center justify-between py-10">
@@ -50,13 +51,29 @@ export default function Navbar() {
                   </button>
                 </Link>
                 <Link href="/dashboard">
-                  <Image
-                    src={`${user.photoURL}`}
-                    alt="User Profile Image"
-                    className="rounded-full"
-                    width={40}
-                    height={40}
-                  />
+                  <button
+                    type="button"
+                    class="relative inline-flex items-center text-sm font-medium text-center text-white"
+                  >
+                    <Image
+                      src={`${user.photoURL}`}
+                      alt="User Profile Image"
+                      className="rounded-full"
+                      width={40}
+                      height={40}
+                    />
+                    <span class="sr-only">Notifications</span>
+                    {user.email === "ohiduzzamansiam@gmail.com" &&
+                      posts.filter((post) => !post.approved).length !== 0 && (
+                        <>
+                          <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2">
+                            {posts.filter((post) => !post.approved).length !==
+                              0 &&
+                              posts.filter((post) => !post.approved).length}
+                          </div>
+                        </>
+                      )}
+                  </button>
                 </Link>
               </div>
             </>
