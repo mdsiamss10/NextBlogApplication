@@ -4,4 +4,5 @@
 * {
   font-family: "Poppins", sans-serif !important;
   font-weight: 400;
+  scroll-behavior: smooth;
 }

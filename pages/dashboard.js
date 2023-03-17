@@ -49,7 +49,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className="py-5">
       {toggleReview ? (
         <>
           <div>
@@ -206,7 +206,7 @@ const Dashboard = () => {
           }}
           class="inline-flex items-center px-3 ml-2 py-2.5 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500"
         >
-          Review
+          Review to
           <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-400 bg-green-200 rounded-full">
             {posts.filter((post) => !post.approved).length}
           </span>
