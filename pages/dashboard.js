@@ -1,5 +1,6 @@
 import Message from "@/components/Message";
 import { db } from "@/firebase.config";
+import { signOut } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
