@@ -62,11 +62,11 @@ export default function Navbar() {
                       width={40}
                       height={40}
                     />
-                    <span class="sr-only">Notifications</span>
+                    <span className="sr-only">Notifications</span>
                     {user.email === "ohiduzzamansiam@gmail.com" &&
                       posts.filter((post) => !post.approved).length !== 0 && (
                         <>
-                          <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2">
+                          <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2">
                             {posts.filter((post) => !post.approved).length !==
                               0 &&
                               posts.filter((post) => !post.approved).length}
