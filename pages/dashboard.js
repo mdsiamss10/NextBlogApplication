@@ -1,7 +1,7 @@
 import Message from "@/components/Message";
-import { auth, db } from "@/firebase.config";
-import { signOut } from "firebase/auth";
+import { db } from "@/firebase.config";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
@@ -152,14 +152,17 @@ const Dashboard = () => {
           <div className="my-4 mt-2">
             {posts
               .filter((post) => post.authorUID === user?.uid)
-              .filter((post) => !post.approved)
               .map((post) => (
                 <>
                   {!post.approved && (
                     <div>
                       <Message key={post?.id} {...post}>
                         <div className="flex items-center gap-3">
-                          <div
+                          <div className="flex items-center gap-1 font-bold text-blue-500 cursor-pointer select-none">
+                            <AiTwotoneDelete />
+                            <span>cancel</span>
+                          </div>
+                          <button
                             onClick={() => {
                               deletePost(post.id);
                             }}
@@ -167,7 +170,7 @@ const Dashboard = () => {
                           >
                             <AiTwotoneDelete />
                             <span>cancel</span>
-                          </div>
+                          </button>
                         </div>
                       </Message>
                     </div>
@@ -177,24 +180,6 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      <button
-        className="text-white mt-4 bg-cyan-400 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        onClick={() => {
-          if (confirm("Are you sure you want to log out?")) {
-            signOut(auth)
-              .then(() => {
-                toast.success("Come back anytime.😊");
-                setTimeout(() => {}, 500);
-              })
-              .catch((err) => {
-                alert("Failed when logging out...");
-                console.log(err.stack);
-              });
-          }
-        }}
-      >
-        Logout
-      </button>
       {/* Show review pending button */}
       {user?.email === "ohiduzzamansiam@gmail.com" ? (
         <button
@@ -204,12 +189,25 @@ const Dashboard = () => {
               setToggleReview(!toggleReview);
             }
           }}
-          class="inline-flex items-center px-3 ml-2 py-2.5 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500"
+          style={
+            posts.filter((post) => !post.approved).length === 0
+              ? { opacity: 0.6 }
+              : { opacity: 1 }
+          }
+          className="inline-flex cursor-pointer items-center px-4 ml-2 py-2.5 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500"
         >
-          Review to
-          <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-400 bg-green-200 rounded-full">
-            {posts.filter((post) => !post.approved).length}
-          </span>
+          {toggleReview ? (
+            <>
+              Review to
+              <span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-400 bg-green-200 rounded-full">
+                {posts.filter((post) => !post.approved).length}
+              </span>
+            </>
+          ) : (
+            <>
+              <Link href="/">Back</Link>
+            </>
+          )}
         </button>
       ) : (
         <button
@@ -227,7 +225,7 @@ const Dashboard = () => {
           class="inline-flex items-center px-3 ml-2 py-2.5 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500"
         >
           Pending
-          <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-400 bg-green-200 rounded-full">
+          <span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-400 bg-green-200 rounded-full">
             {
               posts
                 .filter((post) => post.authorUID === user?.uid)
@@ -236,6 +234,24 @@ const Dashboard = () => {
           </span>
         </button>
       )}
+      <button
+        className="text-red-400 select-none ml-2 float-right bg-transparent focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        onClick={() => {
+          if (confirm("Are you sure you want to log out?")) {
+            signOut(auth)
+              .then(() => {
+                toast.success("Come back anytime.😊");
+                setTimeout(() => {}, 500);
+              })
+              .catch((err) => {
+                alert("Failed when logging out...");
+                console.log(err.stack);
+              });
+          }
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
