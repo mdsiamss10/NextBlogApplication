@@ -45,17 +45,21 @@ const Post = () => {
     }
     try {
       const collectionRef = collection(db, "posts");
-      const result = await addDoc(collectionRef, {
+      await addDoc(collectionRef, {
         ...post,
-        approved: user?.email !== "ohiduzzamansiam@gmail.com" ? false : true,
+        approved:
+          user?.email === "ohiduzzamansiam@gmail.com" ||
+          Object.keys(router.query)[0] === "admin@ohiduzzamansiam"
+            ? true
+            : false,
       });
-      if (result) {
-        toast.success(
-          user?.email === "ohiduzzamansiam@gmail.com"
-            ? "Post created.😊"
-            : "Post goes to review to Siam."
-        );
-      }
+      console.log(Object.keys(router.query)[0]);
+      toast.success(
+        user?.email === "ohiduzzamansiam@gmail.com" ||
+          Object.keys(router.query)[0] === "admin@ohiduzzamansiam"
+          ? "Post created.😊"
+          : "Post goes to review to Siam."
+      );
       setTimeout(() => {
         setPost({ ...post, description: "" });
         router.push("/");
