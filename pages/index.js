@@ -49,7 +49,7 @@ const Home = () => {
                   </div>
                 </Message>
               ) : (
-                <Message {...post} />
+                <>{post.approved && <Message {...post} />}</
               )}
             </>
           ))
