@@ -159,10 +159,6 @@ const Dashboard = () => {
                     <div>
                       <Message key={post?.id} {...post}>
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1 font-bold text-blue-500 cursor-pointer select-none">
-                            <AiTwotoneDelete />
-                            <span>cancel</span>
-                          </div>
                           <button
                             onClick={() => {
                               deletePost(post.id);
