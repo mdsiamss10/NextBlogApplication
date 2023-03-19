@@ -53,7 +53,6 @@ const Post = () => {
             ? true
             : false,
       });
-      console.log(Object.keys(router.query)[0]);
       toast.success(
         user?.email === "ohiduzzamansiam@gmail.com" ||
           Object.keys(router.query)[0] === "admin@ohiduzzamansiam"
