@@ -1,7 +1,7 @@
 import Message from "@/components/Message";
 import Skeleton from "@/components/Skeleton";
 import { db } from "@/firebase.config";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -40,8 +40,21 @@ const Home = () => {
                     <>
                       <div className="flex items-center gap-3">
                         <div
-                          onClick={() => {
-                            deletePost(post.id);
+                          onClick={async () => {
+                            if (
+                              confirm(
+                                "Are you sure you want to delete this post?"
+                              )
+                            ) {
+                              const docRef = doc(db, "posts", post.id);
+                              try {
+                                await updateDoc(docRef, {
+                                  approved: false,
+                                });
+                              } catch (err) {
+                                toast.error(err.message);
+                              }
+                            }
                           }}
                           className="flex items-center gap-1 font-bold text-red-600 cursor-pointer select-none"
                         >
