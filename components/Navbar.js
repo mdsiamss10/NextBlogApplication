@@ -15,7 +15,7 @@ export default function Navbar() {
           <button className="text-lg text-gray-800">Creative thoughts</button>
         </Link>
         <ul>
-          {pathname !== "/auth/login" && (
+          {user === null && pathname !== "/auth/login" && (
             <Link href={`auth/login/`}>
               <button
                 type="button"
